@@ -70,7 +70,7 @@ class GamePreperation {
   endOfGame() {
     this.ctx.font = "bold 40px Verdana";
     this.ctx.fillStyle = "red";
-    this.ctx.fillText("GAME END!", 400, 190);
+    this.ctx.fillText("GAME Over!", 400, 190);
   }
 
   scoreBoard() {

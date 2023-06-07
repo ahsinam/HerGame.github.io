@@ -132,6 +132,7 @@ class Mario {
     if (climbLadder && this.isOnLadder()) {
       this.marioYpos -= this.velocityX;
     }
+
     if (marioDown && this.isOnLadder()) {
       this.marioYpos += this.velocityX;
     }
