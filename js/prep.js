@@ -42,7 +42,7 @@ class GamePreperation {
     this.ctx.fillText("Press d to move right", 500, 75);
     this.ctx.fillText("Press w to move Up", 500, 100);
     this.ctx.fillText("Press x to move down", 500, 125);
-    this.ctx.fillText("Press s to move jump", 500, 150);
+    this.ctx.fillText("Press s to jump", 500, 150);
 
     for (const block of this.wood) {
       block.drawWoodenBlock();

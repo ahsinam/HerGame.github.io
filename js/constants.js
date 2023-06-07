@@ -115,6 +115,3 @@ let timeRemaining = 180;
 let score = 0;
 
 var highScore = +localStorage.getItem("highScoreWood") || 0;
-
-// var level1 = +localStorage.getItem("level1") || false;
-// var level0 = +localStorage.getItem("level0") || true;

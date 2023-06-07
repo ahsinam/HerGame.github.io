@@ -306,15 +306,6 @@ class Mario {
       this.marioDeathAudio.play();
       gameEnd = true;
     }
-
-    // if (
-    //   marioRect.x < objectRect.x + objectRect.width &&
-    //   marioRect.x + marioRect.width > objectRect.x &&
-    //   marioRect.y < objectRect.y + objectRect.height &&
-    //   marioRect.y + marioRect.height > objectRect.y &&
-    //   this.powerUpMode
-    // ) {
-    // }
   }
 
   resetMario() {

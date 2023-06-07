@@ -55,7 +55,6 @@ class FireObstacle {
         this.fireObsXpos += this.dx;
       }
     } else {
-      //This should also be changed
       if (this.fireObsXpos + this.dx > 760) {
         this.dx = -1;
       }

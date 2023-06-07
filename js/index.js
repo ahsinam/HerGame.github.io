@@ -422,6 +422,7 @@ class HerGame {
       this.ladderBlocks
     );
   }
+
   init = () => {
     window.requestAnimationFrame(this.init);
     if (gameStart == false) {
@@ -592,21 +593,3 @@ class HerGame {
 
 const herGame = new HerGame(CANVAS_WIDTH, CANVAS_HEIGHT);
 herGame.init();
-
-// if (!level1 && level0) {
-//   console.log("level 0 initiated");
-//   level1HerGame.init();
-// } else if (level1 && !level0) {
-//   console.log("1 initiated");
-//   herGame.init();
-// }
-
-// const level1HerGame = new Level1HerGame(CANVAS_WIDTH, CANVAS_HEIGHT);
-
-// level1 = true;
-// level0 = false;
-// level1 = false;
-// level0 = true;
-
-// localStorage.setItem("level1", level1);
-// localStorage.setItem("level0", level0);

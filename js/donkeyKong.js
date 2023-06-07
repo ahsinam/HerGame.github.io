@@ -27,18 +27,6 @@ class DonkeyKong {
     );
   }
 
-  // moveKong() {
-  //   this.ctx.clearRect(
-  //     this.kongXpos,
-  //     this.kongYpos,
-  //     this.kongWidth,
-  //     this.kongHeight
-  //   );
-  //   this.frames++;
-  //   if (this.frames > 1) this.frames = 0;
-  //   this.drawKong();
-  // }
-
   changeFrame() {
     this.frames++;
     if (this.frames > 1) this.frames = 0;
