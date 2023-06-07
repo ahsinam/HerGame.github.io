@@ -22,12 +22,16 @@ class HerGame {
     this.indObsBlocks = [];
     this.specialObs = [];
     this.eachWoodObstacle = [];
+    this.coinsInfo = [];
+
     this.objectTimer = null;
     this.fireObsTimer = null;
+    this.gameTimer = null;
+
     this.signal = 0;
     this.fireSignal = 0;
     this.timerSignal = 0;
-    this.gameTimer = null;
+    this.jumped = 0;
 
     this.background = new WoodenBlock(
       0,
@@ -119,8 +123,8 @@ class HerGame {
       this.specialObs,
       this.eachWoodObstacle,
       this.fireObstacle,
-
-      this.characterObs
+      this.characterObs,
+      this.coinsInfo
     );
 
     this.preparation = new GamePreperation(
@@ -153,8 +157,7 @@ class HerGame {
 
     this.initLadderBlocks();
     this.initBlueObstacle();
-
-    this.jumped = 0;
+    this.initCoins();
 
     addEventListener("keydown", (e) => {
       if (e.key == "d") {
@@ -178,7 +181,6 @@ class HerGame {
       if (e.key == "s") {
         if (gameStart && !gameEnd) {
           if (!this.mario.isClimbing()) {
-            console.log({ marioJump });
             if (!marioJump) {
               marioJump = true;
               this.jumped = 60;
@@ -246,7 +248,6 @@ class HerGame {
   //ladder Block
   initLadderBlocks() {
     const ladderBlockData = [];
-    let prvladderX1 = [];
     for (let i = 0; i < this.backgroundBlocks.length - 1; i++) {
       const currentWoodenBlock = this.backgroundBlocks[i];
       const nextWoodenBlock = this.backgroundBlocks[i + 1];
@@ -272,7 +273,7 @@ class HerGame {
         }
       );
     }
-    
+
     for (const data of ladderBlockData) {
       const ladderBlock = new Ladder(data.x, data.y, data.height);
       this.ladderBlocks.push(ladderBlock);
@@ -296,6 +297,36 @@ class HerGame {
     }
   }
 
+  initCoins() {
+    let coinData = [];
+    for (let i = 0; i < this.backgroundBlocks.length - 1; i++) {
+      const currentBlock = this.backgroundBlocks[i];
+      const xpos = generateRandomXpos(currentBlock.woodXpos);
+      const ypos = currentBlock.woodYpos - coinHeight;
+      const xpos2 = generateRandomXpos(currentBlock.woodXpos);
+
+      coinData.push(
+        {
+          x: xpos,
+          y: ypos,
+          width: coinWidth,
+          height: coinHeight,
+        },
+        {
+          x: xpos2,
+          y: ypos,
+          width: coinWidth,
+          height: coinHeight,
+        }
+      );
+
+      for (const data of coinData) {
+        const coinsBlock = new Coins(data.x, data.y, data.width, data.height);
+        this.coinsInfo.push(coinsBlock);
+      }
+    }
+  }
+
   reset() {
     if (this.fireObsTimer) clearInterval(this.fireObsTimer);
     if (this.objectTimer) clearInterval(this.objectTimer);
@@ -309,6 +340,7 @@ class HerGame {
     this.Level0BackgroundBlocks = [];
     this.level0LadderBlocks = [];
     this.lvl2WoodObstacle = [];
+    this.coinsInfo = [];
 
     this.initLadderBlocks();
 
@@ -319,6 +351,7 @@ class HerGame {
       groupObsWidth,
       groupObsHeight
     );
+
     this.indObstacle = [
       new IndividualObstacle(
         this.ctx,
@@ -330,6 +363,7 @@ class HerGame {
         this.backgroundBlocks
       ),
     ];
+
     this.fireObstacle = [
       new FireObstacle(
         this.ctx,
@@ -373,7 +407,8 @@ class HerGame {
       this.specialObs,
       this.eachWoodObstacle,
       this.fireObstacle,
-      this.characterObs
+      this.characterObs,
+      this.coinsInfo
     );
 
     this.restart = new RestartGame(
@@ -407,6 +442,11 @@ class HerGame {
         for (let blueObs of this.eachWoodObstacle) {
           blueObs.moveWoodObstacle();
         }
+
+        for (let coins of this.coinsInfo) {
+          coins.drawCoin();
+        }
+
         this.objectTimer = setInterval(() => {
           this.signal += 1;
           if (!(this.signal % 1000)) {
@@ -515,6 +555,7 @@ class HerGame {
         this.powerUpHammer.drawHammer();
 
         //Draw character and obstacle
+
         this.mario.drawMario();
         this.kong.drawKong();
         this.groupObstacle.drawGroupObs();
@@ -528,6 +569,7 @@ class HerGame {
         this.mario.marioBlueObsCollision();
         this.mario.marioFireObsCollision();
         this.mario.marioCharacterObsCollision();
+        this.mario.marioCoinsCollision();
       }
       if (gameEnd == true) {
         if (score > highScore) {

@@ -107,10 +107,11 @@ const characterObsYpos = 760;
 const characterObsWidth = 100;
 const characterObsHeight = 60;
 
-//Timer
-let timeRemaining = 300;
+//Coins
+const coinWidth = 30;
+const coinHeight = 30;
 
-//Score
+let timeRemaining = 180;
 let score = 0;
 
 var highScore = +localStorage.getItem("highScoreWood") || 0;

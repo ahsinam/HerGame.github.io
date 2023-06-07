@@ -12,7 +12,8 @@ class Mario {
     specialObstacle,
     eachWoodObstalce,
     fireObstacle,
-    characterObstacle
+    characterObstacle,
+    coins
   ) {
     this.ctx = ctx;
     this.originalPosition = [x, y];
@@ -30,6 +31,7 @@ class Mario {
     this.eachWoodObstalce = eachWoodObstalce;
     this.fireObstacle = fireObstacle;
     this.characterObstacle = characterObstacle;
+    this.coins = coins;
 
     this.direction = null;
 
@@ -136,7 +138,7 @@ class Mario {
 
     if (marioJump && !this.isClimbing()) {
       this.marioYpos -= 60;
-      console.log({ direction: this.getDirection() });
+
       if (this.getDirection() == "left") {
         this.marioXpos -= 200;
         this.marioXpos = Math.max(0, this.marioXpos);
@@ -365,7 +367,6 @@ class Mario {
         width: this.marioWidth,
         height: this.marioHeight,
       };
-
       const objectRect = {
         x: block.blueObsXpos,
         y: block.blueObsYpos,
@@ -393,6 +394,36 @@ class Mario {
         const indexOfObstacle = this.eachWoodObstalce.indexOf(block);
         if (indexOfObstacle !== -1) {
           this.eachWoodObstalce.splice(indexOfObstacle, 1);
+          score++;
+        }
+      }
+    }
+  }
+
+  marioCoinsCollision() {
+    for (const block of this.coins) {
+      const marioRect = {
+        x: this.marioXpos,
+        y: this.marioYpos,
+        width: this.marioWidth,
+        height: this.marioHeight,
+      };
+
+      const objectRect = {
+        x: block.coinXpos,
+        y: block.coinYpos,
+        width: block.coinWidth,
+        height: block.coinHeight,
+      };
+      if (
+        marioRect.x < objectRect.x + objectRect.width &&
+        marioRect.x + marioRect.width > objectRect.x &&
+        marioRect.y < objectRect.y + objectRect.height &&
+        marioRect.y + marioRect.height > objectRect.y
+      ) {
+        const indexOfCoin = this.coins.indexOf(block);
+        if (indexOfCoin !== -1) {
+          this.coins.splice(indexOfCoin, 1);
           score++;
         }
       }
